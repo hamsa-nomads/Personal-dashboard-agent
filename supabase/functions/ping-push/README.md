@@ -1,0 +1,1 @@
+Deploy this function as `ping-push`, set `DASHBOARD_URL` and `CRON_SECRET` as function secrets, then schedule it every five minutes from Supabase Cron. It invokes the protected Next.js push sender; it never contains VAPID or database secrets.

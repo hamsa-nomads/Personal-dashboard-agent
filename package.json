@@ -1,0 +1,31 @@
+{
+  "name": "personal-dashboard-agent",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.110.5",
+    "lucide-react": "0.468.0",
+    "next": "16.2.10",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "react-speech-recognition": "4.0.1",
+    "web-push": "3.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.5",
+    "@types/react": "19.0.3",
+    "@types/react-dom": "19.0.2",
+    "@types/react-speech-recognition": "^3.9.6",
+    "@types/web-push": "3.6.4",
+    "typescript": "5.7.2"
+  },
+  "overrides": {
+    "postcss": "8.5.10"
+  }
+}
