@@ -23,7 +23,7 @@
     "@types/react-dom": "19.0.2",
     "@types/react-speech-recognition": "^3.9.6",
     "@types/web-push": "3.6.4",
-    "typescript": "5.7.2"
+    "typescript": "7.0.2"
   },
   "overrides": {
     "postcss": "^8.5.23"
