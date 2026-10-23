@@ -1,0 +1,39 @@
+name: Security CI
+on:
+  push:
+    branches:
+      - main
+      - security/2026-10-nextjs-patch
+  pull_request:
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.1'
+      - name: Resolve patched dependencies without running lifecycle scripts
+        run: npm install --package-lock-only --ignore-scripts --no-fund --no-audit
+      - name: Apply compatible dependency security fixes
+        run: npm audit fix --package-lock-only --ignore-scripts --no-fund || true
+      - name: Verify reproducible install
+        run: npm ci --no-fund
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build
+        run: npm run build
+      - name: Audit runtime dependencies
+        run: npm audit --omit=dev --audit-level=high
+      - name: Persist validated lockfile on security branch
+        if: github.event_name == 'push' && github.ref_name == 'security/2026-10-nextjs-patch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m "security: add reproducible patched dependency lockfile [skip ci]"
+            git push origin HEAD:security/2026-10-nextjs-patch
+          fi
